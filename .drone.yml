@@ -33,3 +33,5 @@ steps:
   - name: list
     commands:
       - ls
+      - pwd
+      - ls ~
