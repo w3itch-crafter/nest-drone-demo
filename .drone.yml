@@ -55,4 +55,8 @@ trigger:
     # When a pull request is merged GitHub sends a push hook to drone
     - push
 
+---
+kind: signature
+hmac: 772bf5ad11a3d9c485195d685884b6774f84baf137326dc8830ac0e37e523b61
 
+...
