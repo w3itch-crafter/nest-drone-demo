@@ -6,14 +6,7 @@ steps:
   - name: greeting
     image: alpine
     commands:
-      - echo hello
-      - echo world
-  - name: backend
-    image: node
-    commands:
-      - yarn install
-      - yarn build
-      - yarn test:cov
+      - echo 'hello world'
 
 ---
 kind: pipeline
@@ -37,3 +30,9 @@ steps:
   - name: list-easyrpg-games
     commands:
       - ls /var/easyrpg/games
+  - name: backend
+    image: node
+    commands:
+      - yarn install
+      - yarn build
+      - yarn test:cov
