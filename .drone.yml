@@ -34,4 +34,6 @@ steps:
     commands:
       - ls
       - pwd
-      - ls ~
+  - name: check-env
+    commands:
+      - ifconfig
