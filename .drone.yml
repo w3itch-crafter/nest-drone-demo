@@ -30,10 +30,10 @@ steps:
   - name: greeting
     commands:
       - echo hello world
-  - name: list
-    commands:
-      - ls
-      - pwd
   - name: check-env
     commands:
       - ifconfig
+      - pwd
+  - name: list-easyrpg-games
+    commands:
+      - ls /var/easyrpg/games
