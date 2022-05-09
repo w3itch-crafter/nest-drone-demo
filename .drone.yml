@@ -47,7 +47,7 @@ steps:
       - ln -s /var/easyrpg/downloads ./thirdparty/downloads
       - rm -rf ./thirdparty/rtp
       - cp -R /var/easyrpg/rtp ./thirdparty/rtp
-      - pm2 restart "nest-drone-demo" --update-env
+      - pm2 status
 trigger:
   branch:
     - main
@@ -57,6 +57,6 @@ trigger:
 
 ---
 kind: signature
-hmac: 7527d10a5201c3a89d004107af43d258c9428b3eaa71d933dbcb06139cfec230
+hmac: 772bf5ad11a3d9c485195d685884b6774f84baf137326dc8830ac0e37e523b6b
 
 ...
