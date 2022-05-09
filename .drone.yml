@@ -8,3 +8,9 @@ steps:
     commands:
       - echo hello
       - echo world
+  - name: backend
+    image: node
+    commands:
+      - yarn install
+      - yarn build
+      - yarn test:cov
