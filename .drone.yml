@@ -35,9 +35,19 @@ steps:
       - ls /var/easyrpg/games
   - name: build
     commands:
-      - yarn install
+      - yarn
       - yarn build
       - cp -r * /home/w3itch/nest-drone-demo
+      - cd /home/w3itch/nest-drone-demo
+      - rm -rf ./thirdparty/games
+      - ln -s /var/easyrpg/games ./thirdparty/games
+      - rm -rf ./thirdparty/gencache
+      - ln -s /var/easyrpg/gencache ./thirdparty/gencache
+      - rm -rf ./thirdparty/downloads
+      - ln -s /var/easyrpg/downloads ./thirdparty/downloads
+      - rm -rf ./thirdparty/rtp
+      - cp -R /var/easyrpg/rtp ./thirdparty/rtp
+      - pm2 restart "nest-drone-demo" --update-env
 trigger:
   branch:
     - main
@@ -47,6 +57,6 @@ trigger:
 
 ---
 kind: signature
-hmac: d5df9b733fff89d4feadbbe4e31c18acfa1648051e9f8ab0482c23cb46c44159
+hmac: 7527d10a5201c3a89d004107af43d258c9428b3eaa71d933dbcb06139cfec230
 
 ...
