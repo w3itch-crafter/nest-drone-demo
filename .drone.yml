@@ -1,3 +1,4 @@
+---
 kind: pipeline
 type: docker
 name: default
@@ -32,9 +33,16 @@ steps:
   - name: list-easyrpg-games
     commands:
       - ls /var/easyrpg/games
-  - name: copy
+  - name: build
     commands:
+      - yarn install
+      - yarn build
       - cp -r * /home/w3itch/nest-drone-demo
 trigger:
   branch:
     - main
+---
+kind: signature
+hmac: 575e5033ebd6927d767d97fd5bcfc4fdf314d3af71228dd3af9f019a069c4c8c
+
+...
