@@ -49,6 +49,8 @@ steps:
       - cp -R /var/easyrpg/rtp ./thirdparty/rtp
       - export PM2_HOME=/home/w3itch/.pm2
       - pm2 status
+      - pm2 restart "nest-drone-demo" --update-env
+
 trigger:
   branch:
     - main
@@ -58,6 +60,6 @@ trigger:
 
 ---
 kind: signature
-hmac: 55d2d59f5abb3981b5bedda3f4afea26d8d467447b3148a7a98a3db2c8f2d48c
+hmac: 289650518f59aa451f2b8c6d42c1d116c181263970aca638b6adf592c789c34a
 
 ...
