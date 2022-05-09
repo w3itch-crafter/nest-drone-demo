@@ -1,6 +1,6 @@
 kind: pipeline
 type: docker
-name: default
+name: build
 
 steps:
   - name: greeting
@@ -14,3 +14,22 @@ steps:
       - yarn install
       - yarn build
       - yarn test:cov
+
+---
+kind: pipeline
+type: ssh
+name: ssh-w3itch-api
+
+server:
+  host: api.w3itch.io
+  user: w3itch
+  ssh_key:
+    from_secret: SSH_ID_RSA
+
+steps:
+  - name: greeting
+    commands:
+      - echo hello world
+  - name: list
+    commands:
+      - ls
