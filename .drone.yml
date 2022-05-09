@@ -1,3 +1,4 @@
+---
 kind: pipeline
 type: docker
 name: default
@@ -32,9 +33,20 @@ steps:
   - name: list-easyrpg-games
     commands:
       - ls /var/easyrpg/games
-  - name: copy
+  - name: build
     commands:
+      - yarn install
+      - yarn build
       - cp -r * /home/w3itch/nest-drone-demo
 trigger:
   branch:
     - main
+  event:
+    # When a pull request is merged GitHub sends a push hook to drone
+    - push
+
+---
+kind: signature
+hmac: d5df9b733fff89d4feadbbe4e31c18acfa1648051e9f8ab0482c23cb46c44159
+
+...
