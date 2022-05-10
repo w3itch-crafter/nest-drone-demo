@@ -38,8 +38,3 @@ steps:
       - yarn
       - ls
 
----
-kind: signature
-hmac: 289650518f59aa451f2b8c6d42c1d116c181263970aca638b6adf592c789c34a
-
-...
