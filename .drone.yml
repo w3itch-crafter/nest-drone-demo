@@ -11,6 +11,38 @@ steps:
       - yarn build
       - yarn test:cov
       - yarn test:e2e
+---
+kind: pipeline
+type: ssh
+name: ssh-deploy-w3itch-api-prod
+
+server:
+  host: api.w3itch.io
+  user: w3itch
+  ssh_key:
+    from_secret: SSH_ID_RSA
+
+steps:
+  - name: greeting
+    commands:
+      - echo hello world
+  - name: check-env
+    commands:
+      - ifconfig
+      - pwd
+  - name: list-easyrpg-games
+    commands:
+      - ls /var/easyrpg/games
+  - name: build
+    commands:
+      - ls
+
+trigger:
+  branch:
+    - main
+  event:
+    # When a pull request is merged GitHub sends a push hook to drone
+    - push
 
 ---
 kind: signature
