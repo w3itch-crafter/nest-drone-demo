@@ -35,7 +35,6 @@ steps:
       - ls /var/easyrpg/games
   - name: build
     commands:
-      - yarn
       - ls
       - cd /root
       - ls
