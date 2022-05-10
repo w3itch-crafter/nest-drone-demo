@@ -36,27 +36,7 @@ steps:
   - name: build
     commands:
       - yarn
-      - yarn build
-      - cp -r * /home/w3itch/nest-drone-demo
-      - cd /home/w3itch/nest-drone-demo
-      - rm -rf ./thirdparty/games
-      - ln -s /var/easyrpg/games ./thirdparty/games
-      - rm -rf ./thirdparty/gencache
-      - ln -s /var/easyrpg/gencache ./thirdparty/gencache
-      - rm -rf ./thirdparty/downloads
-      - ln -s /var/easyrpg/downloads ./thirdparty/downloads
-      - rm -rf ./thirdparty/rtp
-      - cp -R /var/easyrpg/rtp ./thirdparty/rtp
-      - export PM2_HOME=/home/w3itch/.pm2
-      - pm2 status
-      - pm2 restart "nest-drone-demo" --update-env
-
-trigger:
-  branch:
-    - main
-  event:
-    # When a pull request is merged GitHub sends a push hook to drone
-    - push
+      - ls
 
 ---
 kind: signature
