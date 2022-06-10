@@ -4,13 +4,38 @@ type: docker
 name: default
 
 steps:
+  - name: restore-cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache-nest-drone-demo
+        path: /cache
+    settings:
+      restore: true
+      mount:
+        - ./node_modules
+
   - name: build
     image: node
     commands:
-      - yarn install
+      - yarn
       - yarn build
       - yarn test:cov
-      - yarn test:e2e
+
+  - name: rebuild-cache
+    image: drillster/drone-volume-cache
+    volumes:
+      - name: cache-nest-drone-demo
+        path: /cache
+    settings:
+      rebuild: true
+      mount:
+        - ./node_modules
+
+volumes:
+  - name: cache-nest-drone-demo
+    host:
+      path: /tmp/cache-nest-drone-demo
+
 ---
 kind: pipeline
 type: ssh
@@ -37,19 +62,8 @@ steps:
     commands:
       - yarn
       - yarn build
-      - cp -r * /home/w3itch/nest-drone-demo
-      - cd /home/w3itch/nest-drone-demo
-      - rm -rf ./thirdparty/games
-      - ln -s /var/easyrpg/games ./thirdparty/games
-      - rm -rf ./thirdparty/gencache
-      - ln -s /var/easyrpg/gencache ./thirdparty/gencache
-      - rm -rf ./thirdparty/downloads
-      - ln -s /var/easyrpg/downloads ./thirdparty/downloads
-      - rm -rf ./thirdparty/rtp
-      - cp -R /var/easyrpg/rtp ./thirdparty/rtp
       - export PM2_HOME=/home/w3itch/.pm2
       - pm2 status
-      - pm2 restart "nest-drone-demo" --update-env
 
 trigger:
   branch:
@@ -57,9 +71,8 @@ trigger:
   event:
     # When a pull request is merged GitHub sends a push hook to drone
     - push
-
 ---
 kind: signature
-hmac: 289650518f59aa451f2b8c6d42c1d116c181263970aca638b6adf592c789c34a
+hmac: c8892c231be9bf0ca6a8c2ef3f3efa16cf0923e54b232d09428a6205631c1373
 
 ...
