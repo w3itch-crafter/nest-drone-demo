@@ -3,14 +3,17 @@ kind: pipeline
 type: docker
 name: default
 
+
 steps:
-  - name: restore-cache
-    image: drillster/drone-volume-cache
-    volumes:
-      - name: cache-nest-drone-demo
-        path: /cache
-    settings:
-      restore: true
+- name: restore
+  image: plugins/s3-cache
+  settings:
+    pull: true
+    endpoint: https://w3itch-drone.s3.amazonaws.com/nest-drone-demo/
+    access_key: AKIAROMLWC6YXSYUVRJH
+    secret_key:
+      from_secret: DRONE_S3_SECRET_KEY
+    restore: true
       mount:
         - ./node_modules
 
@@ -23,10 +26,11 @@ steps:
 
   - name: rebuild-cache
     image: drillster/drone-volume-cache
-    volumes:
-      - name: cache-nest-drone-demo
-        path: /cache
     settings:
+      endpoint: https://w3itch-drone.s3.amazonaws.com/nest-drone-demo/
+      access_key: AKIAROMLWC6YXSYUVRJH
+      secret_key:
+        from_secret: DRONE_S3_SECRET_KEY
       rebuild: true
       mount:
         - ./node_modules
