@@ -8,7 +8,7 @@ steps:
     image: plugins/s3-cache
     settings:
       pull: true
-      endpoint: https://w3itch-drone.s3.amazonaws.com/nest-drone-demo/
+      endpoint: https://w3itch-drone.s3.amazonaws.com
       access_key: AKIAROMLWC6YXSYUVRJH
       secret_key:
         from_secret: DRONE_S3_SECRET_KEY
@@ -25,7 +25,7 @@ steps:
   - name: rebuild-cache
     image: drillster/drone-volume-cache
     settings:
-      endpoint: https://w3itch-drone.s3.amazonaws.com/nest-drone-demo/
+      endpoint: https://w3itch-drone.s3.amazonaws.com
       access_key: AKIAROMLWC6YXSYUVRJH
       secret_key:
         from_secret: DRONE_S3_SECRET_KEY
@@ -70,5 +70,3 @@ trigger:
 ---
 kind: signature
 hmac: 134a87725029d199560490e19290a3f74e5ac4881df3ff5353b943e40ddfce65
-
-...
