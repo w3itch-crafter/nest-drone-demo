@@ -3,20 +3,18 @@ kind: pipeline
 type: docker
 name: default
 
-
 steps:
-- name: restore
-  image: plugins/s3-cache
-  settings:
-    pull: true
-    endpoint: https://w3itch-drone.s3.amazonaws.com/nest-drone-demo/
-    access_key: AKIAROMLWC6YXSYUVRJH
-    secret_key:
-      from_secret: DRONE_S3_SECRET_KEY
-    restore: true
+  - name: restore-cache
+    image: plugins/s3-cache
+    settings:
+      pull: true
+      endpoint: https://w3itch-drone.s3.amazonaws.com/nest-drone-demo/
+      access_key: AKIAROMLWC6YXSYUVRJH
+      secret_key:
+        from_secret: DRONE_S3_SECRET_KEY
+      restore: true
       mount:
         - ./node_modules
-
   - name: build
     image: node
     commands:
@@ -34,12 +32,6 @@ steps:
       rebuild: true
       mount:
         - ./node_modules
-
-volumes:
-  - name: cache-nest-drone-demo
-    host:
-      path: /tmp/cache-nest-drone-demo
-
 ---
 kind: pipeline
 type: ssh
@@ -77,6 +69,6 @@ trigger:
     - push
 ---
 kind: signature
-hmac: c8892c231be9bf0ca6a8c2ef3f3efa16cf0923e54b232d09428a6205631c1373
+hmac: 134a87725029d199560490e19290a3f74e5ac4881df3ff5353b943e40ddfce65
 
 ...
